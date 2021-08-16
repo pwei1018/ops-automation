@@ -1,10 +1,10 @@
-name: 'build-test'
+name: "build-test"
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
       - main
-      - 'releases/*'
+      - "releases/*"
 
 jobs:
   build: # make sure build/ci work properly
@@ -20,9 +20,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: issues
         with:
           ZENHUB_TOKEN: ${{secrets.ZENHUB_TOKEN}}
           ZENHUB_REPO_ID: ${{secrets.ZENHUB_REPO_ID}}
           GIT_TOKEN: ${{secrets.GIT_TOKEN}}
           GIT_OWNER: ${{secrets.GIT_OWNER}}
           GIT_REPO: ${{secrets.GIT_REPO}}
+
+      - name: Show issue data JSON
+        run: |
+          echo "${{ steps.issues.outputs.issue_content }}"
