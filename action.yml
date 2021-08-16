@@ -1,11 +1,22 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: "Ops automation"
+description: Ops automation actions'
+author: "Pwei1018"
 inputs:
-  milliseconds: # change this
+  ZENHUB_TOKEN:
+    description: "Zenhub API Token"
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  ZENHUB_REPO_ID:
+    description: "Zenhub Repo Id"
+    required: true
+  GIT_TOKEN:
+    description: "Github Access Token"
+    required: true
+  GIT_OWNER:
+    description: "Github Repo Owner"
+    required: true
+  GIT_REPO:
+    description: "Github Repo"
+    required: true
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
