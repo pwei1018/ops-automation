@@ -2,7 +2,7 @@
 import * as github from '@actions/github'
 
 export default class GithubIssue {
-  static async parse(content: string): Promise<string | undefined> {
+  static async parse(content: string): Promise<any> {
     if (!content || content.trim().length === 0) {
       return undefined
     }
@@ -48,7 +48,7 @@ export default class GithubIssue {
     return issue.data
   }
 
-  static async getParseBody(body: string): Promise<string | undefined> {
+  static async getParseBody(body: string): Promise<any> {
     return GithubIssue.parse(body.replace(/^"(.*)"$/, '$1'))
   }
 

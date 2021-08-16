@@ -18,15 +18,16 @@ async function run(): Promise<void> {
     const pipelineIssues: PipelineIssuesIF = await Zenhub.getIssues(zenhubAPIToken, zenhubRepoId)
     console.log(pipelineIssues)
 
+    let parseBody: {} = {}
     for (const issue of pipelineIssues['New Issues']) {
       const content = await GithubIssue.getIssue(githubToken, githubOwner, githubRepo, issue)
       if (await GithubIssue.isMatchLabel(content.labels, 'Refund')) {
-        const parseBody = await GithubIssue.getParseBody(JSON.stringify(content.body))
+        parseBody = await GithubIssue.getParseBody(JSON.stringify(content.body))
         console.log(parseBody)
       }
     }
 
-    core.setOutput('issue_content', pipelineIssues)
+    core.setOutput('issue_content', parseBody)
     core.debug(new Date().toTimeString())
   } catch (error) {
     core.setFailed(error.message)
