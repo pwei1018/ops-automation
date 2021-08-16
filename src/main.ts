@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as core from '@actions/core'
 
 import GithubIssue from './github_issue'

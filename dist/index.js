@@ -137,7 +137,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-/* eslint-disable no-console */
 const core = __importStar(__nccwpck_require__(186));
 const github_issue_1 = __importDefault(__nccwpck_require__(902));
 const zenhub_1 = __importDefault(__nccwpck_require__(538));
@@ -151,15 +150,16 @@ function run() {
             const githubRepo = core.getInput('GIT_REPO');
             core.debug(new Date().toTimeString());
             const pipelineIssues = yield zenhub_1.default.getIssues(zenhubAPIToken, zenhubRepoId);
-            console.log(pipelineIssues);
+            // console.log(pipelineIssues)
+            let parseBody = {};
             for (const issue of pipelineIssues['New Issues']) {
                 const content = yield github_issue_1.default.getIssue(githubToken, githubOwner, githubRepo, issue);
                 if (yield github_issue_1.default.isMatchLabel(content.labels, 'Refund')) {
-                    const parseBody = yield github_issue_1.default.getParseBody(JSON.stringify(content.body));
-                    console.log(parseBody);
+                    parseBody = yield github_issue_1.default.getParseBody(JSON.stringify(content.body));
+                    // console.log(parseBody)
+                    core.setOutput('issue_content', parseBody);
                 }
             }
-            core.setOutput('issue_content', pipelineIssues);
             core.debug(new Date().toTimeString());
         }
         catch (error) {
