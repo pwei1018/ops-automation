@@ -7,11 +7,11 @@ import { PipelineIssuesIF } from './interfaces'
 
 async function run(): Promise<void> {
   try {
-    const zenhubAPIToken: string = core.getInput('zenhub_api_token')
-    const zenhubRepoId: string = core.getInput('zenhub_repo_id')
-    const githubToken: string = core.getInput('git_token')
-    const githubOwner: string = core.getInput('git_owner')
-    const githubRepo: string = core.getInput('git_repo')
+    const zenhubAPIToken: string = core.getInput('ZENHUB_TOKEN')
+    const zenhubRepoId: string = core.getInput('ZENHUB_REPO_ID')
+    const githubToken: string = core.getInput('GIT_TOKEN')
+    const githubOwner: string = core.getInput('GIT_OWNER')
+    const githubRepo: string = core.getInput('GIT_REPO')
 
     core.debug(new Date().toTimeString())
 
