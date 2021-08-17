@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 import * as github from '@actions/github'
+import _ from 'lodash'
 
 export default class GithubIssue {
   static async parse(content: string): Promise<any> {
@@ -22,7 +23,7 @@ export default class GithubIssue {
             // no reponse provided in the payload, report no value
             result[tagMatch[1]] = undefined
           } else {
-            result[tagMatch[1]] = tagMatch[2]
+            result[_.camelCase(tagMatch[1])] = tagMatch[2]
           }
         } else {
           const checkBoxMatch = checkBoxRegex.exec(part)
