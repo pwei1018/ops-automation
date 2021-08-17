@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 import * as github from '@actions/github'
-import _ from 'lodash'
-
 export default class GithubIssue {
+  static camalize(str: string): string {
+    return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+  }
+
   static async parse(content: string): Promise<any> {
     if (!content || content.trim().length === 0) {
       return undefined
@@ -26,8 +28,8 @@ export default class GithubIssue {
             // eslint-disable-next-line no-console
             console.log(tagMatch[1])
             // eslint-disable-next-line no-console
-            console.log(_.camelCase(tagMatch[1]))
-            result[_.camelCase(tagMatch[1])] = tagMatch[2]
+            console.log(GithubIssue.camalize(tagMatch[1]))
+            result[GithubIssue.camalize(tagMatch[1])] = tagMatch[2]
           }
         } else {
           const checkBoxMatch = checkBoxRegex.exec(part)
