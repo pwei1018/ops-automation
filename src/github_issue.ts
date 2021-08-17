@@ -3,9 +3,8 @@ import * as github from '@actions/github'
 
 export default class GithubIssue {
   static camalize(str: string): string {
-    const regExp = /[-_]\w/gi
-    return str.replace(regExp, match => {
-      return match[1].toUpperCase()
+    return ` ${str}`.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, function (match, chr) {
+      return chr.toUpperCase()
     })
   }
 
