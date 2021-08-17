@@ -23,6 +23,8 @@ export default class GithubIssue {
             // no reponse provided in the payload, report no value
             result[tagMatch[1]] = undefined
           } else {
+            // eslint-disable-next-line no-console
+            console.log(_.camelCase(tagMatch[1]))
             result[_.camelCase(tagMatch[1])] = tagMatch[2]
           }
         } else {

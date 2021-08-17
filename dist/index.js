@@ -60,6 +60,8 @@ class GithubIssue {
                             result[tagMatch[1]] = undefined;
                         }
                         else {
+                            // eslint-disable-next-line no-console
+                            console.log(lodash_1.default.camelCase(tagMatch[1]));
                             result[lodash_1.default.camelCase(tagMatch[1])] = tagMatch[2];
                         }
                     }
