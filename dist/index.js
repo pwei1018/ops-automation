@@ -39,7 +39,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const github = __importStar(__nccwpck_require__(438));
 class GithubIssue {
     static camalize(str) {
-        return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+        const regExp = /[-_]\w/gi;
+        return str.replace(regExp, match => {
+            return match[1].toUpperCase();
+        });
     }
     static parse(content) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-extraneous-class */
 import * as github from '@actions/github'
+
 export default class GithubIssue {
   static camalize(str: string): string {
-    return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+    const regExp = /[-_]\w/gi
+    return str.replace(regExp, match => {
+      return match[1].toUpperCase()
+    })
   }
 
   static async parse(content: string): Promise<any> {
