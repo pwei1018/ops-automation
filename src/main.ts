@@ -23,6 +23,7 @@ async function run(): Promise<void> {
       if (await GithubIssue.isMatchLabel(content.labels, 'Refund')) {
         parseBody = await GithubIssue.getParseBody(JSON.stringify(content.body))
         // console.log(parseBody)
+        parseBody['IssueNumber'] = issue
         core.setOutput('issue_content', parseBody)
       }
     }

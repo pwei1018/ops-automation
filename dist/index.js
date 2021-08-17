@@ -166,6 +166,7 @@ function run() {
                 if (yield github_issue_1.default.isMatchLabel(content.labels, 'Refund')) {
                     parseBody = yield github_issue_1.default.getParseBody(JSON.stringify(content.body));
                     // console.log(parseBody)
+                    parseBody['IssueNumber'] = issue;
                     core.setOutput('issue_content', parseBody);
                 }
             }
