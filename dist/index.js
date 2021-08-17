@@ -61,6 +61,8 @@ class GithubIssue {
                         }
                         else {
                             // eslint-disable-next-line no-console
+                            console.log(tagMatch[1]);
+                            // eslint-disable-next-line no-console
                             console.log(lodash_1.default.camelCase(tagMatch[1]));
                             result[lodash_1.default.camelCase(tagMatch[1])] = tagMatch[2];
                         }
