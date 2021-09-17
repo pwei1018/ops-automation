@@ -68,22 +68,3 @@ export default class Refund {
         return fullRefunds
     }
 }
-
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-async function run () {
-    const refund = new Refund(
-        '5c768e1205971f0c9aa07e193fe151ce1b9d18efbd855cd2875dec918b7a1d72394068b10261360c',
-        '158729774',
-        '6125d6774f702c00193cafae',
-        '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',
-        'pwei1018',
-        'entity'
-    )
-    const issuesInPipeline = await refund.getNewRefunds()
-    console.log(issuesInPipeline)
-    const issueDetails = await refund.proccessRefunds(issuesInPipeline)
-    console.log(issueDetails)
-}
-
-run()
