@@ -8,6 +8,9 @@ inputs:
   ZENHUB_REPO_ID:
     description: "Zenhub Repo Id"
     required: true
+  ZENHUB_WORKSPACE_ID:
+    description: "Zenhub Workspace Id"
+    required: true
   GIT_TOKEN:
     description: "Github Access Token"
     required: true
