@@ -17,6 +17,9 @@ inputs:
   GIT_REPO:
     description: "Github Repo"
     required: true
+  OPS_ACTION:
+    description: "Ops Action"
+    required: true
 runs:
   using: "node12"
   main: "dist/index.js"
