@@ -42,7 +42,7 @@ export default class GithubIssue {
     return result
   }
 
-  static async getIssue(githubToken: string, githubOwner: string, githubRepo: string, id: number): Promise<any> {
+  static async getIssue (githubToken: string, githubOwner: string, githubRepo: string, id: number = 0): Promise<any> {
     const octokit = github.getOctokit(githubToken)
 
     const issue = await octokit.rest.issues.get({

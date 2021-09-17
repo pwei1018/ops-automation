@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import fetch from 'node-fetch'
-import { BoardIF, IssueIF, PipelineIF, PipelineIssueIF, PipelinesIF, IssueInPipelineIF } from '@/clients/interfaces'
+import { BoardIF, IssueIF, PipelineIF, PipelineIssueIF, PipelinesIF, IssueInPipelineIF } from '../clients/interfaces'
 import { ApiError } from '../clients'
 
 export default class Zenhub {
@@ -74,7 +74,7 @@ export default class Zenhub {
     return issuesInPipeline
   }
 
-  async moveIssue (issueNumber: number,
+  async moveIssue (issueNumber: number | undefined,
     pipelineId: string,
     repoId: string = Zenhub.DEFAULT_REPO_ID,
     workspaceId: string = Zenhub.DEFAULT_WORKSPACE_ID): Promise<IssueIF> {
