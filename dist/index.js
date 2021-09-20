@@ -361,16 +361,18 @@ function run() {
             const githubRepo = core.getInput('GIT_REPO');
             const opsAction = core.getInput('OPS_ACTION');
             core.debug(new Date().toTimeString());
-            const refund = new refund_1.default(zenhubToken, zenhubRepoId, zenhubWorkspaceId, githubToken, githubOwner, githubRepo);
-            const issuesInPipeline = yield refund.getNewRefunds();
-            console.log(issuesInPipeline);
-            const issueDetails = yield refund.proccessRefunds(issuesInPipeline);
-            console.log(issueDetails);
-            core.setOutput('issue_content', issueDetails);
+            if (opsAction === 'REFUND') {
+                const refund = new refund_1.default(zenhubToken, zenhubRepoId, zenhubWorkspaceId, githubToken, githubOwner, githubRepo);
+                const issuesInPipeline = yield refund.getNewRefunds();
+                const issues = yield refund.proccessRefunds(issuesInPipeline);
+                if (Array.isArray(issues) && issues.length) {
+                    core.setOutput('issue_list', issues);
+                }
+            }
             core.debug(new Date().toTimeString());
         }
         catch (error) {
-            core.setFailed(error.message);
+            core.setFailed(JSON.stringify(error));
         }
     });
 }
@@ -428,7 +430,7 @@ class Refund {
     proccessRefunds(newRefunds) {
         return __awaiter(this, void 0, void 0, function* () {
             const zenhub = new zenhub_1.default(Refund.TOKEN, Refund.REPO_ID, Refund.WORKSPACE_ID);
-            let fullRefunds = [];
+            const fullRefunds = [];
             for (const refund of newRefunds) {
                 let parseBody = {};
                 const content = yield github_issue_1.default.getIssue(Refund.GITHUB_TOKEN, Refund.GITHUB_OWNER, Refund.GITHUB_REPO, refund.issue_number);
