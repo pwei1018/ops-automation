@@ -18,7 +18,7 @@ async function run(): Promise<void> {
 
     const issuesInPipeline = await refund.getNewRefunds()
     const issues = await refund.proccessRefunds(issuesInPipeline)
-    if (Array.isArray(issues) && issues.length) {
+    if (issues.length > 0) {
       core.setOutput('issue_list', issues)
     }
 
