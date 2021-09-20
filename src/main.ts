@@ -18,6 +18,8 @@ async function run(): Promise<void> {
 
     const issuesInPipeline = await refund.getNewRefunds()
     const issues = await refund.proccessRefunds(issuesInPipeline)
+    // eslint-disable-next-line no-console
+    console.log(issues)
     if (issues.length > 0) {
       core.setOutput('issue_list', issues)
     }
