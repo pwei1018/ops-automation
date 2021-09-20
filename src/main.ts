@@ -14,16 +14,15 @@ async function run(): Promise<void> {
 
     core.debug(new Date().toTimeString())
 
-    const refund = new Refund(zenhubToken, zenhubRepoId, zenhubWorkspaceId, githubToken, githubOwner, githubRepo)
+    if (opsAction === 'REFUND') {
+      const refund = new Refund(zenhubToken, zenhubRepoId, zenhubWorkspaceId, githubToken, githubOwner, githubRepo)
 
-    const issuesInPipeline = await refund.getNewRefunds()
-    const issues = await refund.proccessRefunds(issuesInPipeline)
-    // eslint-disable-next-line no-console
-    console.log(issues)
-    if (issues.length > 0) {
-      core.setOutput('issue_list', issues)
+      const issuesInPipeline = await refund.getNewRefunds()
+      const issues = await refund.proccessRefunds(issuesInPipeline)
+      if (Array.isArray(issues) && issues.length) {
+        core.setOutput('issue_list', issues)
+      }
     }
-
     core.debug(new Date().toTimeString())
   } catch (error) {
     core.setFailed(JSON.stringify(error))
