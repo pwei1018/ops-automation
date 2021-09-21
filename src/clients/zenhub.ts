@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import fetch from 'node-fetch'
 import { BoardIF, IssueIF, PipelineIF, PipelineIssueIF, PipelinesIF, IssueInPipelineIF } from '../clients/interfaces'
-import { ApiError } from '../clients'
 
 export default class Zenhub {
   private static readonly API_BASE_URL: string = 'https://api.zenhub.com'
@@ -74,20 +73,20 @@ export default class Zenhub {
     return issuesInPipeline
   }
 
-  async moveIssue (issueNumber: number | undefined,
+  async moveIssue(
+    issueNumber: number | undefined,
     pipelineId: string,
     repoId: string = Zenhub.DEFAULT_REPO_ID,
-    workspaceId: string = Zenhub.DEFAULT_WORKSPACE_ID): Promise<IssueIF> {
-    // https://api.zenhub.com/p2/workspaces/6125d6774f702c00193cafae/repositories/158729774/issues/11/moves
+    workspaceId: string = Zenhub.DEFAULT_WORKSPACE_ID
+  ): Promise<IssueIF> {
     const url = `/p2/workspaces/${workspaceId}/repositories/${repoId}/issues/${issueNumber}/moves`
     console.log(url)
     const requestBody = {
-      'pipeline_id': pipelineId,
-      'position': 'top'
+      pipeline_id: pipelineId,
+      position: 'top'
     }
 
     const response = await this.fetchRequest('POST', url, requestBody)
     return response
   }
 }
-

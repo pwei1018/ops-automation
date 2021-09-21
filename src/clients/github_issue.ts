@@ -21,7 +21,7 @@ export default class GithubIssue {
       const checkBoxRegex = new RegExp('\\- \\[(\\w|\\s)\\] >>(.*)<<')
 
       for (const part of parts) {
-        const tagMatch = tagRegex.exec(part.replace(/\\n\\n/g, ''))
+        const tagMatch = tagRegex.exec(part.replace(/\\n\\n/g, '').replace(/\\r\\n/g, ''))
 
         if (tagMatch) {
           if (tagMatch[2].trim() === '_No response_') {
@@ -42,7 +42,7 @@ export default class GithubIssue {
     return result
   }
 
-  static async getIssue (githubToken: string, githubOwner: string, githubRepo: string, id: number = 0): Promise<any> {
+  static async getIssue(githubToken: string, githubOwner: string, githubRepo: string, id = 0): Promise<any> {
     const octokit = github.getOctokit(githubToken)
 
     const issue = await octokit.rest.issues.get({
