@@ -23,6 +23,9 @@ inputs:
   OPS_ACTION:
     description: "Ops Action"
     required: true
+  ISSUE_LIST:
+    description: "Issue List"
+    required: false
 runs:
   using: "node12"
   main: "dist/index.js"

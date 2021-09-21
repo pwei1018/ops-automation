@@ -11,6 +11,7 @@ async function run(): Promise<void> {
     const githubOwner: string = core.getInput('GIT_OWNER')
     const githubRepo: string = core.getInput('GIT_REPO')
     const opsAction: string = core.getInput('OPS_ACTION')
+    const issueList: string = core.getInput('ISSUE_LIST')
 
     core.debug(new Date().toTimeString())
 
@@ -22,6 +23,12 @@ async function run(): Promise<void> {
       if (Array.isArray(issues) && issues.length) {
         core.setOutput('issue_list', issues)
       }
+    }
+
+    if (opsAction === 'COMPLETED_REFUND') {
+      const refund = new Refund(zenhubToken, zenhubRepoId, zenhubWorkspaceId, githubToken, githubOwner, githubRepo)
+
+      await refund.completeRefunds(issueList.split(',').map(x => +x))
     }
     core.debug(new Date().toTimeString())
   } catch (error) {

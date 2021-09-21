@@ -70,13 +70,13 @@ export default class Refund {
     return fullRefunds
   }
 
-  async completeRefunds(fullRefunds: any[]): Promise<any> {
+  async completeRefunds(issues: number[]): Promise<any> {
     const zenhub = new Zenhub(Refund.TOKEN, Refund.REPO_ID, Refund.WORKSPACE_ID)
 
-    for (const refund of fullRefunds) {
-      await zenhub.moveIssue(refund['IssueNumber'], 'Z2lkOi8vcmFwdG9yL1BpcGVsaW5lLzI0NTY0NTE')
+    for (const issue of issues) {
+      await zenhub.moveIssue(issue, 'Z2lkOi8vcmFwdG9yL1BpcGVsaW5lLzI0NTY0NTE')
     }
 
-    return fullRefunds
+    return
   }
 }
