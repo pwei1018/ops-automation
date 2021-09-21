@@ -54,7 +54,7 @@ class GithubIssue {
                 const tagRegex = new RegExp('>>(.*)<<+(.*)');
                 const checkBoxRegex = new RegExp('\\- \\[(\\w|\\s)\\] >>(.*)<<');
                 for (const part of parts) {
-                    const tagMatch = tagRegex.exec(part.replace(/\\n\\n/g, ''));
+                    const tagMatch = tagRegex.exec(part.replace(/\\n\\n/g, '').replace(/\\r\\n/g, ''));
                     if (tagMatch) {
                         if (tagMatch[2].trim() === '_No response_') {
                             // no reponse provided in the payload, report no value
@@ -195,12 +195,11 @@ class Zenhub {
     }
     moveIssue(issueNumber, pipelineId, repoId = Zenhub.DEFAULT_REPO_ID, workspaceId = Zenhub.DEFAULT_WORKSPACE_ID) {
         return __awaiter(this, void 0, void 0, function* () {
-            // https://api.zenhub.com/p2/workspaces/6125d6774f702c00193cafae/repositories/158729774/issues/11/moves
             const url = `/p2/workspaces/${workspaceId}/repositories/${repoId}/issues/${issueNumber}/moves`;
             console.log(url);
             const requestBody = {
-                'pipeline_id': pipelineId,
-                'position': 'top'
+                pipeline_id: pipelineId,
+                position: 'top'
             };
             const response = yield this.fetchRequest('POST', url, requestBody);
             return response;
